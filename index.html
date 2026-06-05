@@ -1,11 +1,10 @@
 🎧 Ghowse Music Logo
-
 <!DOCTYPE html>
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>எனது மியூசிக் இணையதளம்</title>
+    <title>Spotify Clone</title>
     <style>
         * {
             margin: 0;
@@ -15,96 +14,238 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
         }
 
-        .player-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+        /* பிரதான பகுதி */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* சைடுபார் (Sidebar) */
+        .sidebar {
+            width: 260px;
+            background-color: #000000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1DB954; /* Spotify பச்சை நிறம் */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* முக்கிய பகுதி (Main Content) */
+        .main-content {
+            flex: 1;
+            background: linear-gradient(to bottom, #222222, #121212);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 350px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .album-art {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(45deg, #ff00cc, #3333ff);
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            animation: rotate 20s linear infinite;
-            animation-play-state: paused;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            overflow-y: auto;
         }
 
         h2 {
-            font-size: 22px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
+            font-size: 28px;
         }
 
-        p {
+        /* பிளேலிஸ்ட் அட்டவணை */
+        .playlist {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .playlist th {
+            text-align: left;
+            color: #b3b3b3;
+            border-bottom: 1px solid #333;
+            padding: 10px;
             font-size: 14px;
-            color: #ddd;
-            margin-bottom: 20px;
+        }
+
+        .playlist tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .playlist tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .playlist td {
+            padding: 12px 10px;
+            font-size: 15px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .playlist tr.active {
+            color: #1DB954;
+        }
+
+        /* கீழே இருக்கும் மியூசிக் பிளேயர் பார் (Player Bar) */
+        .player-bar {
+            height: 90px;
+            background-color: #181818;
+            border-top: 1px solid #282828;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .current-song-info {
+            width: 30%;
+        }
+
+        #current-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        #current-artist {
+            font-size: 12px;
+            color: #b3b3b3;
+            margin-top: 3px;
+        }
+
+        .audio-controls {
+            width: 40%;
+            display: flex;
+            justify-content: center;
         }
 
         audio {
             width: 100%;
-            margin-top: 10px;
-            outline: none;
+            max-width: 500px;
+            border-radius: 30px;
         }
 
-        /* ஆடியோ பிளேயரின் நிறத்தை மாற்ற (Chrome/Safari) */
+        /* ஆடியோ பிளேயரை Spotify ஸ்டைலுக்கு மாற்ற */
         audio::-webkit-media-controls-panel {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: #1DB954;
         }
     </style>
 </head>
 <body>
 
-    <div class="player-container">
-        <div class="album-art" id="art">🎵</div>
+    <div class="container">
+        <!-- சைடுபார் -->
+        <div class="sidebar">
+            <div class="logo">🎵 Spotify Clone</div>
+            <p style="color: #b3b3b3; font-size: 14px;">முகப்பு (Home)</p>
+            <p style="color: #b3b3b3; font-size: 14px;">தேடுக (Search)</p>
+            <p style="color: #b3b3b3; font-size: 14px;">உங்களது லைப்ரரி</p>
+        </div>
 
-        <h2 id="song-title">பாடலின் தலைப்பு</h2>
-        <p id="artist-name">இசையமைப்பாளர் / பாடகர்</p>
+        <!-- முக்கிய பகுதி -->
+        <div class="main-content">
+            <h2>எனக்கு பிடித்த பாடல்கள்</h2>
+            
+            <table class="playlist">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 50%">தலைப்பு</th>
+                        <th style="width: 45%">ஆல்பம் / கலைஞர்</th>
+                    </tr>
+                </thead>
+                <tbody id="playlist-body">
+                    <!-- பாடல்கள் ஜாவாஸ்கிரிப்ட் மூலம் இங்கே வரும் -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <audio id="audio-player" controls>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-            உங்கள் பிரவுசர் இந்த ஆடியோவை ஆதரிக்கவில்லை.
-        </audio>
+    <!-- கீழே இருக்கும் பிளேயர் பார் -->
+    <div class="player-bar">
+        <div class="current-song-info">
+            <div id="current-title">பாடலைத் தேர்வு செய்யவும்</div>
+            <div id="current-artist">-</div>
+        </div>
+
+        <div class="audio-controls">
+            <audio id="spotify-player" controls autoplay></audio>
+        </div>
+        
+        <div style="width: 30%;"></div> <!-- சீரான இடைவெளிக்காக -->
     </div>
 
     <script>
-        const audio = document.getElementById('audio-player');
-        const art = document.getElementById('art');
+        // உங்கள் பாடல்களின் பட்டியல் (இங்கே உங்களது சொந்த MP3 லிங்குகளை மாற்றிக்கொள்ளலாம்)
+        const songs = [
+            {
+                id: 1,
+                title: "Sample Audio 1",
+                artist: "Artist Name A",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            {
+                id: 2,
+                title: "Sample Audio 2",
+                artist: "Artist Name B",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+            },
+            {
+                id: 3,
+                title: "Sample Audio 3",
+                artist: "Artist Name C",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            }
+        ];
 
-        // பாடல் இயங்கும்போது படம் சுழலும், நிறுத்தும்போது நிற்கும்
-        audio.onplay = function() {
-            art.style.animationPlayState = 'running';
-        };
-        audio.onpause = function() {
-            art.style.animationPlayState = 'paused';
-        };
+        const playlistBody = document.getElementById('playlist-body');
+        const player = document.getElementById('spotify-player');
+        const currentTitle = document.getElementById('current-title');
+        const currentArtist = document.getElementById('current-artist');
+
+        // பிளேலிஸ்ட்டை இணையதளத்தில் உருவாக்குதல்
+        function loadPlaylist() {
+            playlistBody.innerHTML = "";
+            songs.forEach((song, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${song.title}</td>
+                    <td>${song.artist}</td>
+                `;
+                tr.onclick = () => playSong(index, tr);
+                playlistBody.appendChild(tr);
+            });
+        }
+
+        // பாடலை இயக்கும் செயல்பாடு
+        function playSong(index, rowElement) {
+            // முந்தைய ஆக்டிவ் பாடலின் நிறத்தை மாற்றுதல்
+            const rows = playlistBody.getElementsByTagName('tr');
+            for(let i=0; i<rows.length; i++) {
+                rows[i].classList.remove('active');
+            }
+            
+            // தற்போதைய பாடலை ஹைலைட் செய்தல்
+            rowElement.classList.add('active');
+
+            // பாடலை மாற்றி இயக்குதல்
+            player.src = songs[index].url;
+            currentTitle.textContent = songs[index].title;
+            currentArtist.textContent = songs[index].artist;
+            player.play();
+        }
+
+        // முதலில் பிளேலிஸ்ட்டை லோட் செய்ய
+        loadPlaylist();
     </script>
-
 </body>
 </html>
-<h2>🎶 Music & Media</h2><h2>🎵 Ghowse Music Center</h2><h2>🎧 Ghowse Music Hub</h2>
-🎧 Ghowse Music Logo
+
