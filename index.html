@@ -1,97 +1,110 @@
 🎧 Ghowse Music Logo
 
-© Ghowse Music<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghowse Music</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>எனது மியூசிக் இணையதளம்</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#000;
-    color:#fff;
-    text-align:center;
-}
-header{
-    background:#111;
-    padding:30px;
-}
-h1{
-    color:gold;
-}
-section{
-    padding:40px 20px;
-}
-.audio-player{
-    margin:20px auto;
-}
-iframe{
-    max-width:100%;
-}
-footer{
-    background:#111;
-    padding:20px;
-    color:#aaa;
-}
-.btn{
-    background:gold;
-    color:black;
-    padding:12px 25px;
-    text-decoration:none;
-    border-radius:5px;
-}
-</style>
+        body {
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
 
+        .player-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .album-art {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: rotate 20s linear infinite;
+            animation-play-state: paused;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        /* ஆடியோ பிளேயரின் நிறத்தை மாற்ற (Chrome/Safari) */
+        audio::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
 </head>
 <body>
 
-<header>
-<h1>🎵 Ghowse Music</h1>
-<p>Feel The Music, Live The Emotion</p>
-</header>
+    <div class="player-container">
+        <div class="album-art" id="art">🎵</div>
 
-<section>
-<h2>About Me</h2>
-<p>Welcome to Ghowse Music. Listen to original songs, music videos and latest releases.</p>
-</section>
+        <h2 id="song-title">பாடலின் தலைப்பு</h2>
+        <p id="artist-name">இசையமைப்பாளர் / பாடகர்</p>
 
-<section>
-<h2>Latest Song</h2>
+        <audio id="audio-player" controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            உங்கள் பிரவுசர் இந்த ஆடியோவை ஆதரிக்கவில்லை.
+        </audio>
+    </div>
 
-<audio controls class="audio-player">
-<source src="song.mp3" type="audio/mpeg">
-</audio>
+    <script>
+        const audio = document.getElementById('audio-player');
+        const art = document.getElementById('art');
 
-</section>
+        // பாடல் இயங்கும்போது படம் சுழலும், நிறுத்தும்போது நிற்கும்
+        audio.onplay = function() {
+            art.style.animationPlayState = 'running';
+        };
+        audio.onpause = function() {
+            art.style.animationPlayState = 'paused';
+        };
+    </script>
 
-<section>
-<h2>Latest Video</h2>
-
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-title="YouTube video player"
-frameborder="0"
-allowfullscreen>
-</iframe>
-
-</section>
-
-<section>
-<h2>Follow Me</h2>
-<a href="https://youtube.com/" class="btn">YouTube</a>
-</section>
-
-<footer>
-© 2026 Ghowse Music. All Rights Reserved.
-</footer>
-<source src="nandri-thirantha-vaasal.mp3" type="audio/mpeg">
 </body>
-</html><source src="song1.mp3" type="audio/mpeg">
-index.html
-cover.jpg
-song1.mp3
+</html>
 <h2>🎶 Music & Media</h2><h2>🎵 Ghowse Music Center</h2><h2>🎧 Ghowse Music Hub</h2>
 🎧 Ghowse Music Logo
